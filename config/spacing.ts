@@ -54,6 +54,7 @@ const radius = {
   _3: normalizeY(3),
   _5: normalizeY(5),
   _6: normalizeY(6),
+  _8: normalizeY(8),
   _10: normalizeY(10),
   _12: normalizeY(12),
   _15: normalizeY(15),

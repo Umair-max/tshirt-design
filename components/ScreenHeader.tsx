@@ -6,9 +6,15 @@ import AppText from "./AppText";
 import colors from "@/config/colors";
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import { CaretLeftIcon } from "phosphor-react-native";
+import {
+  ArrowSquareOutIcon,
+  CaretLeftIcon,
+  ShareNetworkIcon,
+  StarIcon,
+} from "phosphor-react-native";
+import AppIcon from "./AppIcon";
 
-export type ScreenTypes = "home";
+export type ScreenTypes = "home" | "edit-design" | "export";
 
 type ScreenHeaderProps = {
   heading?: string;
@@ -52,7 +58,10 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
       {isBack && (
         <TouchableOpacity
           onPress={() => router.back()}
-          style={styles.touchable}
+          style={[
+            styles.touchable,
+            { width: screen == "export" ? normalizeX(80) : normalizeX(60) },
+          ]}
         >
           <CaretLeftIcon weight="bold" />
           <AppText size={13} style={{ fontWeight: "500" }}>
@@ -63,7 +72,34 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
       <AppText size={18} style={{ fontWeight: "500" }}>
         {heading}
       </AppText>
-      {isBack && <View style={{ width: normalizeX(60) }} />}
+      {isBack && !screen && <View style={{ width: normalizeX(60) }} />}
+      {screen == "edit-design" && (
+        <TouchableOpacity
+          style={[styles.touchable, styles.export]}
+          onPress={() => router.push("/export")}
+        >
+          <AppText size={14} style={styles.exportTxt}>
+            Export
+          </AppText>
+          <ArrowSquareOutIcon color={colors.white} size={normalizeY(20)} />
+        </TouchableOpacity>
+      )}
+      {screen == "export" && (
+        <View style={{ flexDirection: "row", gap: spacingX._10 }}>
+          <AppIcon
+            icon={ShareNetworkIcon}
+            size={normalizeX(35)}
+            containerStyle={styles.icon}
+            iconProps={{ size: normalizeX(20) }}
+          />
+          <AppIcon
+            icon={StarIcon}
+            size={normalizeX(35)}
+            containerStyle={styles.icon}
+            iconProps={{ size: normalizeX(20) }}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -103,6 +139,23 @@ const styles = StyleSheet.create({
   premiumText: {
     color: colors.white,
     fontWeight: "600",
+  },
+  export: {
+    backgroundColor: colors.button,
+    padding: spacingY._5,
+    paddingHorizontal: spacingX._10,
+    width: "auto",
+    borderRadius: radius._20,
+    gap: spacingX._5,
+  },
+  exportTxt: {
+    color: colors.white,
+    marginTop: normalizeY(1),
+    fontWeight: "500",
+  },
+  icon: {
+    borderRadius: radius._8,
+    backgroundColor: colors.grey_bg,
   },
 });
 

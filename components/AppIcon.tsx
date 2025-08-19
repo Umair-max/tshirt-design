@@ -15,6 +15,7 @@ interface AppIconProps {
   iconStyle?: StyleProp<ViewStyle>;
   containerStyle?: ViewStyle;
   iconProps?: IconProps;
+  size?: number;
   onPress?: () => void;
 }
 
@@ -23,10 +24,9 @@ const AppIcon: React.FC<AppIconProps> = ({
   iconStyle = {},
   containerStyle,
   iconProps,
+  size = normalizeY(42),
   onPress,
 }) => {
-  const size = normalizeY(42);
-
   return (
     <TouchableOpacity
       style={[styles.icon, { height: size, width: size }, containerStyle]}

@@ -1,12 +1,16 @@
 import colors from "@/config/colors";
 import { radius, width } from "@/config/spacing";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 function DesignView() {
   return (
-    <TouchableOpacity style={styles.designView}>
+    <TouchableOpacity
+      style={styles.designView}
+      onPress={() => router.push("/edit-design")}
+    >
       <Image
         source={require("@/assets/images/design.png")}
         style={styles.image}

@@ -5,14 +5,14 @@ import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-function AllDesignView() {
+function MockupDesignView() {
   return (
     <TouchableOpacity
       style={styles.designView}
       onPress={() => router.push("/edit-design")}
     >
       <Image
-        source={require("@/assets/images/design.png")}
+        source={require("@/assets/images/mockup.png")}
         style={styles.designImg}
       />
     </TouchableOpacity>
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   designImg: {
-    height: "80%",
-    width: "80%",
+    height: "100%",
+    width: "100%",
   },
 });
 
-export default AllDesignView;
+export default MockupDesignView;

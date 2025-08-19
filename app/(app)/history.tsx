@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacingX._15,
     gap: spacingY._15,
     paddingBottom: spacingY._30,
+    paddingTop: spacingY._10,
   },
 });
 

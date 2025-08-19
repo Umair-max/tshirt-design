@@ -1,12 +1,13 @@
 import AppText from "@/components/AppText";
 import CategoryView from "@/components/CategoryView";
 import DesignView from "@/components/DesignView";
+import MockupDesignView from "@/components/MockupDesignView";
 import ScreenComponent from "@/components/ScreenComponent";
 import ScreenHeader from "@/components/ScreenHeader";
 import SeeAllView from "@/components/SeeAllView";
 import TemplatesTab, { TemplateTabTypes } from "@/components/TemplatesTab";
 import colors from "@/config/colors";
-import { radius, spacingX, spacingY, width } from "@/config/spacing";
+import { radius, spacingX, spacingY } from "@/config/spacing";
 import { normalizeX, normalizeY } from "@/utils/normalize";
 import { Image, ImageBackground } from "expo-image";
 import { router } from "expo-router";
@@ -36,6 +37,9 @@ function Templates() {
   const [selectedType, setSelectedType] = useState<DesignTypes>("T Shirt");
   const [selectedCategory, setSelectedCategory] = useState<string>(
     categories[0]
+  );
+  const [selectedMockup, setSelectedMockup] = useState<string>(
+    mockup_categories[0]
   );
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -194,11 +198,11 @@ function Templates() {
             </ScrollView>
           </>
         ) : (
-          <>
+          <View>
             <FlatList
               data={mockup_categories}
               horizontal
-              style={{ marginBottom: spacingY._10, height: normalizeY(60) }}
+              style={{ height: normalizeY(50) }}
               contentContainerStyle={styles.categoryList}
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
@@ -206,13 +210,27 @@ function Templates() {
                 return (
                   <CategoryView
                     item={item}
-                    selected={selectedCategory}
-                    setSelected={handleCategorySelect}
+                    selected={selectedMockup}
+                    setSelected={setSelectedMockup}
                   />
                 );
               }}
             />
-          </>
+            <FlatList
+              data={Array.from({ length: 10 })}
+              numColumns={2}
+              contentContainerStyle={[
+                styles.designList,
+                { paddingBottom: "55%" },
+              ]}
+              columnWrapperStyle={{ justifyContent: "space-between" }}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item, index }) => {
+                return <MockupDesignView />;
+              }}
+            />
+          </View>
         )}
       </ScreenComponent>
     </ImageBackground>
